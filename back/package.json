@@ -1,0 +1,27 @@
+{
+  "name": "desarrolloplataformas",
+  "version": "1.0.0",
+  "description": "Proyecto Plataformas Oferta Académica",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"hola\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skrlet13/DesarrolloPlataformas.git"
+  },
+  "author": "Grupo 5 2-2021 UCN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skrlet13/DesarrolloPlataformas/issues"
+  },
+  "homepage": "https://github.com/skrlet13/DesarrolloPlataformas#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "nodemon": "^2.0.13",
+    "passport": "^0.5.0",
+    "pg": "^8.7.1",
+    "pg-promise": "^10.11.0"
+  }
+}
