@@ -5,15 +5,15 @@ import {
     Bars,
     NavMenu,
     NavBtn,
-    NavBtnLink
+    NavBtnLink,
+    NavImage
   } from './NavbarComponents';
+import logo from './logo192.png';
 
 const Navbar = () =>  {
     return (
         <Nav>
-            <NavLink to="/">
-                <h1>Home</h1>
-            </NavLink>
+            <img src={logo}  activeStyle/> 
             <Bars />
             <NavMenu>
                 <NavLink to={{ pathname: "https://eic.ucn.cl" }} target="_blank" activeStyle>
