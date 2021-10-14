@@ -1,0 +1,1 @@
+export {default as AppMallas} from '../pages/mallas';
