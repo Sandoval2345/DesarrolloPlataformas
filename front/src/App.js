@@ -1,13 +1,12 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
-import Mallas from '../src/pages/mallas';
+import NavBar from '../../front/src/components/Navbar';
 import { BrowserRouter as Router} from 'react-router-dom';
-
 
 function App() {
   return (
     <Router>
-      <Mallas />
+      <NavBar />
     </Router>
   );
 }
