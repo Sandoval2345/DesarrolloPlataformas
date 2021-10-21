@@ -3,12 +3,13 @@ import {Nav, NavLink, Bars, NavMenu,NavBtn, NavBtnLink} from './Navigation'
 
 
 
+
 export default function NavBar() {
     return (
         <>
            <Nav> 
                <NavLink to = "/">
-                   <h1>LOGO</h1>
+                   <img src={require('../../Assets/LogoEIC.svg')} alt='logo'/>
                </NavLink>
                <Bars />
                <NavMenu>
@@ -25,7 +26,7 @@ export default function NavBar() {
                         MALLAS
                    </NavLink>
                    <NavLink to="/oa" activeStyle>   
-                        OFERTA ACADEMICA
+                        OFERTA  ACADEMICA
                    </NavLink>
                </NavMenu>
                <NavBtn>
