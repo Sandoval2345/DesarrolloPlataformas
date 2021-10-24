@@ -11,7 +11,7 @@ import AppMallas from './pages/mallas';
 function App() {
   return (
     <Router>
-      <AppMallas />|
+      <AppMallas />
     </Router>
   );
 }

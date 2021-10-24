@@ -2,7 +2,7 @@
 import React from 'react'
 import { AppBar, Cajon, Box } from '../../components'
 import{
-    makeStyles, Hidden
+    makeStyles, Hidden, Button, Grid
 
 } from '@material-ui/core';
 
@@ -13,14 +13,13 @@ const useStyles = makeStyles(theme=>({
     },
     toolbar: theme.mixins.toolbar,
     content:{
-        flexGrow: 1,
         padding: theme.spacing(0)
     },
 
 
 }))
 
-export default function Contenedor() {
+export default function ContenedorMallas() {
 
     const classes = useStyles()
     const [abrir, setAbrir] = React.useState(false)
@@ -44,10 +43,32 @@ export default function Contenedor() {
                 />
             </Hidden>
             <div className = { classes.content }>
-                <div className = { classes.toolbar }></div>
+            <Grid container component = 'main' className = {classes.content}>
+                <h1 className = {classes.text} > Mallas Curriculares </h1>
+                <Button variant = 'contained'
+                        color = 'primary'
+                        size = 'large'
+                        className = {classes.button}
+                >
+                    c    
+                </Button>
+                <Button variant = 'contained'
+                        color = 'primary'
+                        size = 'large'
+                        className = {classes.button}
+                >
+                    c    
+                </Button>
+                <Button variant = 'contained'
+                        color = 'primary'
+                        size = 'large'
+                        className = {classes.button}
+                >
+                    c    
+                </Button>
+            </Grid>
             </div>
             
         </div>
     )
 }
-
