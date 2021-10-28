@@ -24,7 +24,6 @@ export default function Cajon(props) {
     return (
         <Drawer 
             className = {classes.drawer}
-            
             classes={{
                 paper: classes.drawePaper 
             }}
@@ -33,7 +32,7 @@ export default function Cajon(props) {
             open = {props.open}
             onClose = {props.onClose ? props.onClose : null}
         >
-            <div className = {classes.toolbar}></div>
+            <div className = {classes.toolbar}/>
             <Divider/>
             <Listas/>
 

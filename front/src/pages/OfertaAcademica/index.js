@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Contenedor } from '../../components'
 import TimelineIcon from '@mui/icons-material/Timeline'
 //import { AppBar } from '../../components'
+import { SelectCarr } from '../../components'
+
 
 
 
@@ -20,7 +22,6 @@ const useStyles = makeStyles(theme=>({
     text:{
         textAlign: 'center',
         marginTop: theme.spacing(5),
-       
         color: 'white'
     },
     button:{
@@ -34,9 +35,13 @@ const useStyles = makeStyles(theme=>({
             height: '100%'
         }
     },
-  
+    select:{
+        marginRight: theme.spacing(8)
+        
+    }
 
 }))
+
 
 export default function OfertaAcademica() {
 
@@ -44,25 +49,24 @@ export default function OfertaAcademica() {
 
     return (
         <div>
-            <Contenedor/>
-            <h2 className = { classes.text }>Haz clic en el boton para generar la sugerencia de Oferta Academica</h2>
-            <Grid container component ='main' className={classes.root}>
-                <Button
-                    
-                    variant = 'contained'
-                    color = 'primary'
-                    size = 'large'
-                    endIcon = {<TimelineIcon fontSize = 'large'/>}
-                    className = {classes.button}
-                    
-                >
-                    
-                    GENERAR OFERTA ACADEMICA
-                    
-                    
-                </Button>
-            </Grid>
-
+            <section >
+                <Contenedor/>
+                <h2 className = { classes.text }>Haz clic en el boton para generar la sugerencia de Oferta Academica</h2>
+                <div style = {{width:'150px',margin: '0 auto', marginTop:'50px'}}><SelectCarr /></div>
+                <Grid container component ='main' className={classes.root}>
+                    <Button
+                        variant = 'contained'
+                        color = 'primary'
+                        size = 'large'
+                        endIcon = {<TimelineIcon fontSize = 'large'/>}
+                        className = {classes.button}
+                        
+                    >
+                        
+                        GENERAR OFERTA ACADEMICA
+                    </Button>
+                </Grid>
+            </section>
             
         </div>
        
