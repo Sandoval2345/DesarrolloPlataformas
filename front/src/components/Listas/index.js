@@ -24,15 +24,16 @@ export default function Lista() {
         <div>
             <List component = 'nav'>
                 <div>
-                    <Link to = '../../pages/Home' className = 'btn' >
-                        <ListItem button>
-                            <ListItemIcon>
-                                <HomeIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary='HOME'/>
-                        </ListItem>
-                    </Link>
-                    
+                    <li class = 'nav-item'>
+                        <Link to = '/' className = 'btn' >
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <HomeIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='HOME'/>
+                            </ListItem>
+                        </Link>
+                    </li>
                     <NavLink to= {{ pathname: "https://tongoy.ucn.cl"}} target="_blank" activeStyle className = 'btn'>
                         <ListItem button>
                             <ListItemIcon>
@@ -51,15 +52,16 @@ export default function Lista() {
                         </ListItem>
                     </NavLink>
                    
-                    <Link to ={'OfertaAcademica'} className = 'btn'>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <CalendarTodayIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary='OFERTA ACADEMICA'/>
-                        </ListItem>
-                    </Link>
-
+                    <li class = 'nav-item'>
+                        <Link to ={'/OfertaAcademica'} className = 'btn'>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <CalendarTodayIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary='OFERTA ACADEMICA'/>
+                            </ListItem>
+                        </Link>
+                    </li>
                 </div>
                 <Divider/>
             </List>
