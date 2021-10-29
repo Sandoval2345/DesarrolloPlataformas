@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme =>({
     offset: theme.mixins.toolbar, //hace al sitio responsive
     menuButton: {
         marginRight: theme.spacing(2),
-        [theme.breakpoints.up('sm')]:{
+        [theme.breakpoints.up('xxl')]:{ //cuando la pagina este en tamanio xl aparecera el boton que despliega el menu
             display: 'none'
         }
         
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme =>({
         
     },
     appBar:{
-        [theme.breakpoints.up('sm')]:{
+        [theme.breakpoints.up('xxl')]:{
             width:`calc(100% - ${240}px)`,
             marginLeft: 240
         }
@@ -56,7 +56,6 @@ export default function Barra(props) {
                 
 
                 <Button
-                    
                     variant = 'contained'
                     color = 'primary'
                 >
@@ -64,6 +63,7 @@ export default function Barra(props) {
                 </Button>
                 
             </Toolbar>
+          
         </AppBar>
         
         

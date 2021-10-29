@@ -1,17 +1,23 @@
-//import logo from './logo.svg';
 import './App.css';
-//import NavBar from '../../front/src/components/Navbar';
-//import OfertaAcademica from '../src/pages/OfertaAcademica'
+import OfertaAcademica from '../src/pages/OfertaAcademica'
 //import Login from './pages/Login';
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { Navigation } from '@material-ui/icons';
 //import { AppBar } from './components';
-//import Home from './pages/Home'
-import AppMallas from './pages/mallas';
+import Home from './pages/Home'
+//import Mallas from './pages/Mallas'
+//import Salas from './pages/Salas'
+import Contenedor from './components/Contenedor'
+
+
+
 
 function App() {
   return (
     <Router>
-      <AppMallas />
+      <Contenedor/>
+      <Route path= '/'exact component={Home}/>
+      <Route path= '/OfertaAcademica' component={OfertaAcademica}/>
     </Router>
   );
 }
