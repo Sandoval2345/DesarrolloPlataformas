@@ -1,10 +1,10 @@
-
 import React from 'react'
 import { AppBar, Cajon, Box } from '../../components'
 import{
-    makeStyles, Hidden, Button, Grid
+    makeStyles, Hidden
 
 } from '@material-ui/core';
+import boxCentral from '../../pages/mallas';
 
 
 const useStyles = makeStyles(theme=>({
@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme=>({
     },
     toolbar: theme.mixins.toolbar,
     content:{
-        padding: theme.spacing(0)
+        flexGrow: 1,
+        padding: theme.spacing(3)
     },
 
 
@@ -43,30 +44,8 @@ export default function ContenedorMallas() {
                 />
             </Hidden>
             <div className = { classes.content }>
-            <Grid container component = 'main' className = {classes.content}>
-                <h1 className = {classes.text} > Mallas Curriculares </h1>
-                <Button variant = 'contained'
-                        color = 'primary'
-                        size = 'large'
-                        className = {classes.button}
-                >
-                    c    
-                </Button>
-                <Button variant = 'contained'
-                        color = 'primary'
-                        size = 'large'
-                        className = {classes.button}
-                >
-                    c    
-                </Button>
-                <Button variant = 'contained'
-                        color = 'primary'
-                        size = 'large'
-                        className = {classes.button}
-                >
-                    c    
-                </Button>
-            </Grid>
+                <div className = {classes.toolbar}></div>
+                <boxCentral/>
             </div>
             
         </div>
