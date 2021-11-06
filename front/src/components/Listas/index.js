@@ -10,7 +10,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import HelpIcon from '@mui/icons-material/Help';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-
+import AddIcon from '@mui/icons-material/Add';
 import { Link, NavLink,  } from 'react-router-dom';
 
 
@@ -24,7 +24,7 @@ export default function Lista() {
         <div>
             <List component = 'nav'>
                 <div>
-                    <li class = 'nav-item'>
+                    <li className = 'nav-item'>
                         <Link to = '/' className = 'btn' >
                             <ListItem button>
                                 <ListItemIcon>
@@ -52,13 +52,24 @@ export default function Lista() {
                         </ListItem>
                     </NavLink>
                    
-                    <li class = 'nav-item'>
+                    <li className = 'nav-item'>
                         <Link to ={'/OfertaAcademica'} className = 'btn'>
                             <ListItem button>
                                 <ListItemIcon>
                                     <CalendarTodayIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary='OFERTA ACADEMICA'/>
+                            </ListItem>
+                        </Link>
+                    </li>
+
+                    <li className = 'nav-item'>
+                        <Link  to = {'/Salas'} className = 'btn'>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <AddIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary = 'SALAS'/>
                             </ListItem>
                         </Link>
                     </li>
