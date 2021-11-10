@@ -11,6 +11,7 @@ const pool = new Pool({
 
 const creacionTablas = async(req,res) =>{
     const response = await pool.query('create table asignatura(ecin text primary key,departmento text,sede text,horas int,creditos int, nombre text); create table paralelo(corraltivo int primary key, nombre text, cuposMax int, inscritos int, ecin text references Asignatura(ecin), plataforma text, acta text, calificable text, disp text, rutProfesor references profesor(rut), titular text, semestre text); create table salas( aforomax int, codsala text primary key,tipo text);')
+    res.json('Tablas creadas')
 }
 
 const getSalas = async(req, res) =>{
