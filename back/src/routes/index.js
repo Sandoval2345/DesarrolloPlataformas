@@ -8,6 +8,6 @@ router.get('/salas/:codsala',getSalaById)
 router.delete('/salas/:codsala',deleteSala)
 router.put('/salas/:codsala',updateSala)
 router.post('/tablas', creacionTablas) //se crean tablas
-//router.delete('/tablas', borrarTablas) //se borran tablas
+router.delete('/tablas', borrarTablas) //se borran tablas
 
 module.exports = router

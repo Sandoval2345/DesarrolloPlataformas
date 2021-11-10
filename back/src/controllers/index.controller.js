@@ -1,6 +1,6 @@
 
 const { Pool } = require('pg');
-/**
+
 const pool = new Pool({
     host: 'ec2-34-224-239-147.compute-1.amazonaws.com',
     user: 'qfoxsdbcxjlrwx',
@@ -8,9 +8,9 @@ const pool = new Pool({
     database: 'd5rkq2vcb1kc51',
     port: '5432'
 });
-**/
 
 
+/**
 const pool = new Pool({
     host: 'localhost',
     user: 'postgres',
@@ -18,14 +18,15 @@ const pool = new Pool({
     database: 'db',
     port: '5432'
 });
+**/
 
 const creacionTablas = async(req,res) =>{
-    const response = await pool.query('create table asignatura(ecin text primary key,departmento text,sede text,horas int,creditos int, nombre text); create table paralelo(corraltivo int primary key, nombre text, cuposMax int, inscritos int, ecin text references Asignatura(ecin), plataforma text, acta text, calificable text, disp text, rutProfesor references profesor(rut), titular text, semestre text); create table salas( aforomax int, codsala text primary key,tipo text);');
+    const response = await pool.query('create table asignatura(ecin text primary key,departamento text,sede text,horas int,creditos int, nombre text); create table paralelo(correlativo int primary key, nombre text, cuposMax int, inscritos int, ecin text,  foreign key (ecin) references Asignatura(ecin), plataforma text, acta text, calificable text, disp text, titular text, semestre text); create table salas( aforomax int, codsala text primary key,tipo text);');
     res.json('Tablas creadas');
 }
 
 const borrarTablas = async(req,res) =>{
-    const response = await pool.query('drop table asignatura; drop table profesor, drop table paralelo;');
+    const response = await pool.query('drop table asignatura; drop table profesor; drop table paralelo;');
     res.json('Tablas borradas');
 }
 
