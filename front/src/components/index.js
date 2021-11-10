@@ -5,5 +5,5 @@ export {default as Contenedor} from '../components/Contenedor';
 export {default as Cajon} from '../components/Cajon';
 export {default as Box} from '../components/Box';
 export {default as SelectCarr} from '../components/SelectCarr'
-
+export {default as TablaSalas} from '../components/TablaSalas'
 
