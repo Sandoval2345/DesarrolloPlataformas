@@ -3,15 +3,15 @@ import Pool from "pg";
 
 let salasFunctions = {};
 
-/*const pool = new Pool.Pool({
+const pool = new Pool.Pool({
     host: 'ec2-34-224-239-147.compute-1.amazonaws.com',
     user: 'qfoxsdbcxjlrwx',
     password: '84ccd88118904fa7683b3c13b2e1a03fccbae0a4b867ed2861457fb815c5b4ec',
     database: 'd5rkq2vcb1kc51',
     port: '5432'
-});*/
+});
 
-
+/*
 const pool = new Pool.Pool({
     host: 'localhost',
     user: 'postgres',
@@ -19,6 +19,7 @@ const pool = new Pool.Pool({
     database: 'pruebabas',
     port: '5432'
 });
+*/
 
 
 salasFunctions.creacionTablas = async(req,res) =>{
