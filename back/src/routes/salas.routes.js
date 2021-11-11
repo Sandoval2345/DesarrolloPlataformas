@@ -9,11 +9,15 @@ router.get('/getSalasById/:codsala',salasFunctions.getSalaById);
 
 //post
 router.post('/registSalas',salasFunctions.createSala); //ruta para guardar datos, por eso se usa post
-
+router.post('/tablas', salasFunctions.creacionTablas) //se crean tablas
 //delete
 router.delete('/deleteSalas/:codsala',salasFunctions.deleteSala);
+router.delete('/tablas', salasFunctions.borrarTablas) //se borran tablas
 
 //put
 router.put('/updateSalas/:codsala',salasFunctions.updateSala);
+
+
+
 
 export default router;
