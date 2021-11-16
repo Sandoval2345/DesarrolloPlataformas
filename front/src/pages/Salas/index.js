@@ -1,29 +1,16 @@
-import React, {useEffect,useState} from 'react';
-import axios from 'axios';
-import { Contenedor } from '../../components';
+import React from 'react';
 
-const baseUrl = 'http://localhost:3001/salas'
+import { Contenedor, TablaSalas } from '../../components';
+
+
 
 export default function Salas() {
     
-    const [data, setData] = useState([]);
-
-    const peticionGet = async() =>{
-        await axios.get(baseUrl)
-        .then(response =>{
-            console.log(response.data);
-        })
-    }
-
-    useEffect (async() =>{
-        await peticionGet();
-    },[])
-
 
     return (
         <div>
             <Contenedor/>
-            Salas
+            <TablaSalas/>
         </div>
     )
 }
