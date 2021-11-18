@@ -95,6 +95,7 @@ export default function TablaSalas() {
         })
     }
 
+    
     //peticion delete
     const deleteSala = async() =>{
         await axios.delete('/api/salas/deleteSalas/'+SalaSeleccionada.codsala)
