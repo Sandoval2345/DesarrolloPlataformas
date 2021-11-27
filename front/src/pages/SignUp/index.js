@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Grid, Container, Paper, Avatar, Typography, Button, TextField} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import {  LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import { useAuth } from '../../context/AuthContext'
 import { Link, useHistory} from 'react-router-dom'
 import { ListItemText } from '@mui/material'
@@ -14,8 +14,7 @@ const useStyles = makeStyles(theme=>({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100vh',
-        
+        height: '100vh'
     },
     container:{
         opacity: '0.8',
@@ -36,7 +35,7 @@ const useStyles = makeStyles(theme=>({
     },
     avatar:{
         margin: theme.spacing(6),
-        marginBottom: theme.spacing(1),
+        marginTop: -40,
         backgroundColor: theme.palette.primary.main
        
     },
@@ -64,55 +63,54 @@ const useStyles = makeStyles(theme=>({
 
 }))
 
-export default function Login() {
-    const { login } = useAuth(); //esta funcion viene de /context/AuthContext
+export default function SignIn() {
+    const { signup } = useAuth() //esta funcion viene de /context/AuthContext
     const [error, setError] = useState(null);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const classes = useStyles();
-    const history = useHistory();
-
+    const [confpas,setConfpas] = useState('')
     const handleEmail = (event) => setEmail(event.target.value) //el email se setea deacuerdo al valor que ingrese en el input
-    const handlePassword = (event) => setPassword(event.target.value) //la password se setea deacuerdo al valor que ingrese en el input
-
-    const handleSubmit = async(event) => { //usaremos login, que es asincrona por eso colocamos asyn en esta funcion
-        event.preventDefault();
-
-        try{
-            await login(email, password)
-            // history nos envia a home luego de iniciar sesion validamente
-            history.push('/') 
-        }catch (error){
-            setError('Datos incorrectos');
-            setTimeout (()=> setError(''), 2500) //se setea el error a un string vacio dps de 1500ms
+    const handlePassword = (event) => setPassword(event.target.value) //la password se setea deacuerdo al valor que ingrese en el input  
+    const handleConfirm = (event) => setConfpas(event.target.value)
+    const classes = useStyles()
+    const history = useHistory();
+    
+    const handleSubmit = async(event) => {
+        event.preventDefault(); //para evitar que se recarge
+        if (password !== confpas){
+            setError('Contraseñas no coinciden')
+            setTimeout(()=> setError(''), 2500)
+        }else{
+            try{
+                await signup(email, password) //aqui ya se verifico que ambas contrasenias sean iguales, por lo tanto, un error aca solo seria del servidor
+                history.push('/') //se crea la cuenta y se redirige al proytecto raiz
+            } catch(prop){
+                setError('Server Error')
+                setTimeout(()=> setError(''), 2500)             
+            }
         }
     }
-
-
-
     return (
         <div>
-            
-            <Grid container component ='main' className={classes.root}>
-                <Container component={Paper} elevation={5} maxWidth = 'xs' className = {classes.container}> 
+            <Grid container component = 'main' className = {classes.root}>
+                <Container component={Paper} elevation={5} maxWidth = 'xs' className = {classes.container}>{/** caja contenedora blanca */}
                     <div className = {classes.div}>
                         {error && <p className= 'error'>{error}</p>}
-                        
-                        <Avatar className = {classes.avatar}> 
-                            <LockOutlinedIcon / /*ICONO DE CANDADO*/> 
+                        <br/>
+                        <Avatar className = {classes.avatar}>
+                            <PersonAddAltOutlinedIcon/> {/**icono de addUser */}
                         </Avatar>
-                        <Typography component = 'h1' variant = 'h4'> Login </Typography>
-                        
-                        <form className = {classes.form} onSubmit = {handleSubmit}>  
+                        <Typography component = 'h1' variant = 'h4'> Sign Up </Typography>
+                        <form className = {classes.form} onSubmit = {handleSubmit}>
                             <br/>
-                            <TextField //input de usuario
+                            <TextField
                                 variant = 'outlined'
                                 fullWidth
                                 required
                                 autoFocus //enfocado en input de usuario
                                 placeholder = 'Correo Institucional'
-                                type = 'email'
-                                onChange = {handleEmail}
+                                type = 'email' 
+                                onChange = {handleEmail}                               
                             />
                             <br/>
                             <br/>
@@ -123,31 +121,34 @@ export default function Login() {
                                 autoFocus //enfocado en input de usuario
                                 placeholder = 'Contraseña'
                                 type = 'password' //eso encripta la password por pantalla
-                                onChange = {handlePassword}         
+                                onChange = {handlePassword}
+                            />
+                            <br/>
+                            <br/>
+                            <TextField
+                                variant = 'outlined'
+                                fullWidth
+                                required
+                                autoFocus //enfocado en input de usuario
+                                placeholder = 'Confirmar contraseña'
+                                type = 'password' //eso encripta la password por pantalla
+                                onChange = {handleConfirm}
                             />
                             
-                        
                             <Button
                                 type = 'submit'
-                                value = 'Login'
+                                value = 'signup'
                                 fullWidth
                                 variant = 'contained'
                                 color = 'primary'
-                                className = {classes.button}
+                                className = {classes.button}                                
                             >
-                                Ingresar
-                            </Button>    
-                            
-                            <Link to = '/signup'>
-                                <ListItemText secondary = 'Crear cuenta'  className = {classes.text}/>
-                            </Link>
-
+                                Crear
+                            </Button>
                         </form>
-                    
                     </div>
                 </Container>
- 
-            </Grid>
+            </Grid>  
         </div>
     )
 }

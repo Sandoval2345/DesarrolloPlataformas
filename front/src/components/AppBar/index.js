@@ -1,8 +1,8 @@
-import React from 'react'
-import { Button, Toolbar,AppBar, Typography, IconButton } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu'
-
+import React, { useState } from 'react';
+import { Button, Toolbar,AppBar, Typography, IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import { useAuth } from '../../context/AuthContext';
 
 
 
@@ -32,7 +32,16 @@ const useStyles = makeStyles(theme =>({
 
 
 export default function Barra(props) {
+    const [error, setError] = useState ('');
+    const { logout } = useAuth(); //esta funcion viene de /context/AuthContext
 
+    const handleLogout = async () => {
+        try{
+            await logout();
+        } catch (error){ 
+            setError('Server Error')
+        }
+    }
     const classes = useStyles()
 
     return (
@@ -54,10 +63,13 @@ export default function Barra(props) {
                     Sistema Generador de Oferta Academica
                 </Typography>
                 
-
+                <div>
+                    {error && <p className = 'error' > {error} </p>} 
+                </div>
                 <Button
                     variant = 'contained'
                     color = 'primary'
+                    onClick = {handleLogout}
                 >
                     Logout
                 </Button>

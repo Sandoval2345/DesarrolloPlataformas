@@ -3,8 +3,9 @@ import { Grid, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Contenedor } from '../../components'
 import TimelineIcon from '@mui/icons-material/Timeline'
-//import { AppBar } from '../../components'
-import { SelectCarr } from '../../components'
+import { SelectCarr, SelectSemestre } from '../../components'
+
+
 
 
 
@@ -36,8 +37,21 @@ const useStyles = makeStyles(theme=>({
     select:{
         marginRight: theme.spacing(8)
         
-    }
+    },
+    div1:{
+        margin: theme.spacing(3, 70, 2),
+        flexDirection: 'column',
+        alignItems: 'center',
+        
 
+    },
+    div2:{
+        margin: theme.spacing(3, 70, 2),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    }
+       
 }))
 
 
@@ -50,7 +64,8 @@ export default function OfertaAcademica() {
             <section >
                 <Contenedor/>
                 <h2 className = { classes.text }>Haz clic en el boton para generar la sugerencia de Oferta Academica</h2>
-                <div style = {{width:'150px',margin: '0 auto', marginTop:'50px'}}><SelectCarr /></div>
+                <div className = {classes.div1} style = {{width:'150px',margin:'auto'}}><SelectCarr /></div>
+                <div className = {classes.div2} style = {{width:'200px',margin:'auto'}}><SelectSemestre/></div>
                 <Grid container component ='main' className={classes.root}>
                     <Button
                         variant = 'contained'
@@ -58,9 +73,7 @@ export default function OfertaAcademica() {
                         size = 'large'
                         endIcon = {<TimelineIcon fontSize = 'large'/>}
                         className = {classes.button}
-                        
                     >
-                        
                         GENERAR OFERTA ACADEMICA
                     </Button>
                 </Grid>
