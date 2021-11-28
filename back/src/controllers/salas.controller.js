@@ -1,3 +1,4 @@
+
 import e from "express";
 import pool from "../Database/conexion.js"
 
@@ -80,4 +81,3 @@ salasFunctions.updateSala = async(req, res)=>{
 }
 
 export default salasFunctions;
-

@@ -1,16 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
-//import { AppBar } from '../../components'
-//import { Listas } from '../../components'
-//import { Oculto } from '../../components'
 import { Contenedor } from "../../components";
 
 
 const useStyles = makeStyles(theme=>({
   
   text:{
-      textAlign: 'center',
-      marginTop: theme.spacing(20),
+      textAlign : 'center',
+      marginTop: theme.spacing(30),
       color: 'white'
   },
   

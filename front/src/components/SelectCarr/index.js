@@ -29,6 +29,7 @@ export default function SelectCarrera() {
                     <MenuItem value = {1}>ICCI</MenuItem>
                     <MenuItem value = {2}>ICI</MenuItem>
                     <MenuItem value = {3}>ITI</MenuItem>
+                    <MenuItem value = {4}>Todas</MenuItem>
                 </Select>
             </formControl>
         </div>

@@ -37,7 +37,7 @@ export default function TablaSalas() {
     const [modalEdit, setModalEdit] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
     const [SalaSeleccionada, setSalaSeleccionada] = useState({
-        aforomax: '',
+        aforoMax:'',
         tipo:'',
         codsala: ''
     })
@@ -83,11 +83,11 @@ export default function TablaSalas() {
         await axios.put('/api/salas/updateSalas/'+ SalaSeleccionada.codsala, SalaSeleccionada)
         .then(response =>{
             var dataNueva = data; //guarda los nuevos datos de la sala
-            dataNueva.map(sala =>{ //recorre el arrego con los nuevos datos de la sala 
+            dataNueva.forEach(sala=>{ //recorre el arrego con los nuevos datos de la sala 
                 if(SalaSeleccionada.codsala === sala.codsala){
-                    sala.aforomax = SalaSeleccionada.aforomax;
+                    sala.aforoMax = SalaSeleccionada.aforoMax;
                     sala.tipo = SalaSeleccionada.tipo;
-                    sala.codsala =SalaSeleccionada.codsala;
+                    sala.codsala = SalaSeleccionada.codsala;
                 }
             })
             setData(dataNueva);
@@ -95,6 +95,7 @@ export default function TablaSalas() {
         })
     }
 
+    
     //peticion delete
     const deleteSala = async() =>{
         await axios.delete('/api/salas/deleteSalas/'+SalaSeleccionada.codsala)
@@ -120,7 +121,7 @@ export default function TablaSalas() {
     const seleccionarSala=(sala, caso)=>{
         setSalaSeleccionada(sala);
         (caso === 'Editar')?abrirCerrarModalEdit():abrirCerrarModalELiminar()
-        
+
     }
 
 
@@ -143,7 +144,7 @@ export default function TablaSalas() {
     const bodyEdit = ( //esto es lo que se abrira al apretar el boton de insertar (modal)
         <div className = {classes.modal}>
             <h3>Editar Sala</h3>
-            <TextField name = 'aforoMax' className = {classes.inputMaterial} label = 'Aforo maximo' onChange = {handleChange} value = {SalaSeleccionada && SalaSeleccionada.aforomax}/>
+            <TextField name = 'aforoMax' className = {classes.inputMaterial} label = 'Aforo maximo' onChange = {handleChange} value = {SalaSeleccionada && SalaSeleccionada.aforoMax}/>
             <br/>
             <TextField name = 'tipo' className = {classes.inputMaterial} label = 'Tipo' onChange = {handleChange} value = {SalaSeleccionada && SalaSeleccionada.tipo}/>
             <br/>
@@ -171,8 +172,9 @@ export default function TablaSalas() {
      *
     */
     return (
-        <div>
-            <Button onClick = {()=>abrirCerrarModalInsert()}>Insertar</Button>
+        <div className = 'App'>
+            <br/>
+            <Button  onClick = {()=>abrirCerrarModalInsert()}>Insertar</Button>
             <br /><br />
             <TableContainer>
                 <Table>
@@ -187,14 +189,14 @@ export default function TablaSalas() {
 
                     <TableBody>
                         {data.map(sala =>(
-                            <TableRow key = {sala.codsala}>
+                            <TableRow>
                                 <TableCell>{sala.aforomax}</TableCell>
                                 <TableCell>{sala.tipo}</TableCell>
                                 <TableCell>{sala.codsala}</TableCell>
                                 <TableCell>
                                     <Edit className = {classes.icons} onClick = {()=>seleccionarSala(sala, 'Editar')}/>
                                     &nbsp;&nbsp;&nbsp; 
-                                    <Delete className = {classes.icons} onClick ={()=>deleteSala(sala, 'Eliminar')}/>
+                                    <Delete className = {classes.icons} onClick ={()=>seleccionarSala(sala, 'Eliminar')}/>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -211,7 +213,7 @@ export default function TablaSalas() {
 
             <Modal
                 open = {modalEdit}
-                onClose = {abrirCerrarModalInsert}
+                onClose = {abrirCerrarModalEdit}
             >
                 {bodyEdit}
             </Modal>
