@@ -6,7 +6,7 @@ import Salas from './pages/Salas'
 import { AuthProvider } from './context'
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-//import Contenedor from './components/Contenedor'
+import { ForgotPassword } from './pages';
 import { PrivateRoute } from './components'
 
 
@@ -23,6 +23,7 @@ function App() {
           <PrivateRoute path= '/Salas' component =  {Salas}/>
           <Route path= '/login' component = {Login}/>
           <Route path='/signup' component={SignUp}/>
+          <Route path = '/forgotpassword' component = {ForgotPassword}/>
         </Switch>
       </Router>
     </AuthProvider>

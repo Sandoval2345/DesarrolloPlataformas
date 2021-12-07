@@ -20,6 +20,7 @@ export const useAuth = () => useContext(AuthContext);
 export default function AuthProvider(props) {
     
     const [currentUser, setCurrentUser] = useState({});
+    
 
     useEffect(() =>{
         auth.onAuthStateChanged((user)=>{ //observa cambios en el usuario (inicio o termino de sesion), si esque existe un usuario cambia la variable current user
@@ -28,17 +29,20 @@ export default function AuthProvider(props) {
     },[])
 
     const signup = (email, password) =>{
-        return auth.createUserWithEmailAndPassword(email,password);
-    }
+        return auth.createUserWithEmailAndPassword(email,password)
+    };
     const login = (email,password) =>{
         return auth.signInWithEmailAndPassword(email, password)
-    }
+    };
+    const resetPassword = (email) => {
+        return auth.sendPasswordResetEmail(email)
+    };
     const logout = () => auth.signOut();
-    const value = { signup, login, logout, currentUser };
+    const value = { signup, login, logout, currentUser, resetPassword };
     return (
         <div>
             <AuthContext.Provider value={value}>
-                {props.children}
+                { props.children }
             </AuthContext.Provider>
         </div>
     )
