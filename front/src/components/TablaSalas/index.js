@@ -2,7 +2,8 @@ import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core';
 import { Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField } from '@material-ui/core';
-import {Edit, Delete} from '@material-ui/icons'
+import {Edit, Delete} from '@material-ui/icons';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 
 
@@ -52,7 +53,7 @@ export default function TablaSalas() {
         }
 
     }
-
+    
 
     
     //peticion get
@@ -165,16 +166,41 @@ export default function TablaSalas() {
             <Button onClick={()=>abrirCerrarModalELiminar()}>No</Button>
           </div>
         </div>
-      )
+    )
 
     /*con data.map recorremos el arreglo que nos retorno getSalas
      *
      *
     */
+   const tablaSalas = (
+       <Table>
+            <TableHead>
+                <TableRow>
+                    <TableCell>Aforo Maximo</TableCell>
+                    <TableCell>Tipo</TableCell>
+                    <TableCell>Codigo Sala</TableCell>
+                    <TableCell>Acciones</TableCell>
+                </TableRow>
+
+                <TableBody>
+                    {data.map(sala =>(
+                        <TableRow>
+                            <TableCell>{sala.aforomax}</TableCell>
+                            <TableCell>{sala.tipo}</TableCell>
+                            <TableCell>{sala.codsala}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </TableHead>           
+       </Table>
+   )
+  
     return (
         <div className = 'App'>
             <br/>
-            <Button  onClick = {()=>abrirCerrarModalInsert()}>Insertar</Button>
+            <div align = 'center'>
+                <Button  onClick = {()=>abrirCerrarModalInsert()}>Insertar</Button>
+            </div>
             <br /><br />
             <TableContainer>
                 <Table>
@@ -202,6 +228,7 @@ export default function TablaSalas() {
                         ))}
                     </TableBody>
                 </Table>
+ 
             </TableContainer>
 
             <Modal
@@ -224,7 +251,19 @@ export default function TablaSalas() {
             >
                 {bodyEliminar}
             </Modal>
-
+            <br/><br/>
+            <div align = "center">
+                <ReactHTMLTableToExcel
+                    id = 'botonExportarExcel'
+                    className = 'btn btn-success'
+                    table = 'TablaSalas'
+                    filename = 'Salas'
+                    sheet = 'salasEIC'
+                    buttonText = 'Exportar a Excel'
+                />   
+                 
+                 
+            </div>
 
         </div>
         

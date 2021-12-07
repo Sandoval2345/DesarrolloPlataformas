@@ -14,12 +14,12 @@ const useStyles = makeStyles(theme=>({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100vh'
+        
     },
     container:{
         opacity: '0.8',
-        height: '80%', //largo del contenedor
-        marginTop: theme.spacing(10), //altura del contenedor
+        height: '85%', //largo del contenedor
+        marginTop: theme.spacing(20), //altura del contenedor
         [theme.breakpoints.down(400 + theme.spacing(2)+2)]:{ //responsive
             marginTop: 0,
             width: '100%',
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme=>({
         justifyContent: 'flex-start'
     },
     text:{
-        marginLeft: 155,
+        marginLeft: 170,
         marginTop: 30
     }
 
@@ -74,11 +74,20 @@ export default function SignIn() {
     const handleConfirm = (event) => setConfpas(event.target.value)
     const classes = useStyles()
     const history = useHistory();
-    
+
+
+    /**
+     * handleSubmit es la funcion que se ejecuta al presionar el boton 'crear', esta de debe invocar (onSubmit) cuando se cree el formulario
+     * donde se ingresara la info necesaria, en este caso email y password
+     * 
+     */
     const handleSubmit = async(event) => {
         event.preventDefault(); //para evitar que se recarge
         if (password !== confpas){
             setError('Contraseñas no coinciden')
+            setTimeout(()=> setError(''), 2500)
+        }else if (!email.includes('@ucn.cl')){
+            setError('Ingrese un correo valido')
             setTimeout(()=> setError(''), 2500)
         }else{
             try{
@@ -145,6 +154,11 @@ export default function SignIn() {
                             >
                                 Crear
                             </Button>
+                    
+                            <Link to = '/'>
+                                <ListItemText secondary = 'Regresar' className = {classes.text}/>
+                            </Link>
+                            <br/><br/>
                         </form>
                     </div>
                 </Container>

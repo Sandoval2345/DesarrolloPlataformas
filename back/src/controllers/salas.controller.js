@@ -6,24 +6,6 @@ import pool from "../Database/conexion.js"
 let salasFunctions = {};
 
 
-/**
-salasFunctions.consulta = async(req,res) =>{
-    res.setHeader("Content-type", "text/json");
-    console.log("holamundo");
-  
-    await pool
-      .query("select nombre, apellido from prueba")
-      .then((result) => {
-        console.log(result.rows);
-        res.send(result.rows);
-      })
-      .catch((e) => console.log(e));
-  
-}
-**/
-
-
-
 salasFunctions.getSalas = async(req, res) =>{
     await pool
         .query('SELECT aforomax, tipo, codsala FROM salas')
@@ -32,6 +14,7 @@ salasFunctions.getSalas = async(req, res) =>{
         })
         .catch((e) => console.log(e)); //responde con un objeto json y el status es el codigo de estado, por defecto es 200
 }
+
 
 salasFunctions.getSalaById = async(req, res) =>{ //el id se entrega por url
     await pool

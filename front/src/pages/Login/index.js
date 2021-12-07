@@ -14,14 +14,15 @@ const useStyles = makeStyles(theme=>({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100vh',
+        height: '100v'
+
         
     },
     container:{
         opacity: '0.8',
         height: '80%', //largo del contenedor
-        marginTop: theme.spacing(10), //altura del contenedor
-        [theme.breakpoints.down(400 + theme.spacing(2)+2)]:{ //responsive
+        marginTop: theme.spacing(20), //altura del contenedor
+        [theme.breakpoints.down(400 + theme.spacing(4)+4)]:{ //responsive
             marginTop: 0,
             width: '100%',
             height: '100%'
@@ -48,17 +49,13 @@ const useStyles = makeStyles(theme=>({
         margin: theme.spacing(3, 0, 2) //mrgen general
         
     },
-    input:{
-        flex: 1, 
-        padding: 4, 
-        marginLeft: 85,
-        marginTop: 5, 
-        fontSize: 18, 
-        borderWidth: 1,  
-        justifyContent: 'flex-start'
-    },
+
     text:{
         marginLeft: 155,
+        marginTop: 30
+    },
+    text2:{
+        marginLeft: 128,
         marginTop: 30
     }
 
@@ -141,6 +138,10 @@ export default function Login() {
                             <Link to = '/signup'>
                                 <ListItemText secondary = 'Crear cuenta'  className = {classes.text}/>
                             </Link>
+                            <Link to = '/forgotpassword'>
+                                <ListItemText secondary = 'Recuperar contraseña'  className = {classes.text2}/>
+                            </Link>  
+                            <br/><br/>                    
 
                         </form>
                     
