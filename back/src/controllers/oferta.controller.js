@@ -23,7 +23,6 @@ ofertaFunctions.estimacionPrereqAsignatura = async(req,res) =>{
      deAsignatura.paralelos=paralelos;
      j[i]=deAsignatura;
     }
-    console.log(j)
     res.status(200).send(JSON.parse(JSON.stringify(j)));
     })
       .catch((e) => console.log(e));
@@ -31,30 +30,25 @@ ofertaFunctions.estimacionPrereqAsignatura = async(req,res) =>{
 }
 
 ofertaFunctions.guardarOfertaAsignatura = async(req,res) =>{
-  console.log(req.body)
-  const re=req.body;
+  const re=req.body
   var semestre=re.semestre;
   for (var i=0;i<199;i++){
     var ecin=re[i].ecin;
     var cantParalelos=re[i].paralelos;
-    var demEstima=re[i].demEstima;
-    var departamento=re[i].materia
-    res.setHeader("Content-type", "text/json");
+    var demEstima=re[i].demEst;
+    var departamento=re[i].materia;
     await pool .query("insert into ofertaAcademica values ($1) ON CONFLICT DO NOTHING;;",[semestre]).catch((e) =>console.log(e));
-
     await pool
-      .query(" insert  into ofertaAsignatura(semestre, ecin, departamento, cantParalelos, demandaEstimada) values ($1,$2,$3,$4,$5) ON CONFLICT (semestre, ecin, departamento) do update set cantparalelos=$6, demandaEstimada=$7;",[semestre, ecin, departamento,demEstima, cantParalelos,demEstima, cantParalelos])
-      .then((result) => {
-    
-     res.json("Oferta Ingresada")
-    })
+      .query(" insert  into ofertaAsignatura(semestre, ecin, departamento, cantParalelos, demandaEstimada) values ($1,$2,$3,$4,$5) ON CONFLICT (semestre, ecin, departamento) do update set cantparalelos=$6, demandaEstimada=$7;",[semestre, ecin, departamento,demEstima, cantParalelos, cantParalelos,demEstima])
+      .then((result)=> console.log("Hecho"))
       .catch((e) => console.log(e));
-      
-}}
+    }
+  res.body("Oferta ingresada");
+}
 
 ofertaFunctions.getOfertas = async(req,res)=>{
   await pool
-    .query('select * from ofertaAsignatura')
+    .query('select ofertaasignatura.ecin, ofertaasignatura.departamento, asignatura.nombre, cantParalelos, demandaEstimada  from ofertaAsignatura inner join asignatura on ofertaasignatura.ecin=asignatura.ecin and asignatura.departamento=ofertaAsignatura.departamento where semestre=$1',[req.params.semestre])
     .then((result)=>{
       res.status(200).json(result.rows);
     })
