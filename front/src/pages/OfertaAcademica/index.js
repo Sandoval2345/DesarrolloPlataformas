@@ -1,9 +1,9 @@
 import React,  {useEffect,useState }from 'react'
-import { Grid, Button, TableCell, TableRow, TableHead, TableBody, TableContainer} from '@material-ui/core'
+import { Grid, Button, TextField} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Contenedor } from '../../components'
 import TimelineIcon from '@mui/icons-material/Timeline'
-import { SelectCarr, SelectSemestre } from '../../components'
+import { SelectSemestre } from '../../components'
 import axios from 'axios';
 
 import XLSX from 'xlsx';
@@ -62,10 +62,12 @@ export default function OfertaAcademica() {
     const classes = useStyles() 
 
     const [datas, setData] = useState([]);
-
+    const [semestreSeleccionado, setSemestreSeleccionado] = useState({
+        semestre:''
+    })
 
     const getOfertas = async() => {
-        await axios.get('/api/oferta/getofertas')
+        await axios.get('/api/oferta/getofertas/' + semestreSeleccionado)
         .then(response => {
             setData(response.data)
         })
@@ -74,7 +76,14 @@ export default function OfertaAcademica() {
         getOfertas();
     },[])
 
-
+    const handleChange=e=>{
+        const {name,value}=e.target;
+        setSemestreSeleccionado(prevState=>({
+            ...prevState,
+            [name]: value
+        }))
+        console.log(semestreSeleccionado)
+    }
     const DataSet = datas.map((oferta)=>(
 
         {
@@ -102,7 +111,18 @@ export default function OfertaAcademica() {
                 <h2 className = { classes.text }>Haz clic en el boton para generar la sugerencia de Oferta Academica</h2>
                 {/*<div className = {classes.div1} style = {{width:'150px',margin:'auto'}}><SelectCarr /></div>*/}
                 <br/><br/>
-                <div className = {classes.div2} style = {{width:'200px',margin:'auto'}}><SelectSemestre/></div>
+                <div className = {classes.div2} style = {{width:'200px',margin:'auto'}}>
+                    <TextField
+                        fullWidth
+                        color = 'primary'
+                        margin = 'normal'
+                        variant = 'outlined'
+                        label = 'Ingerese año-semestre. Ej:2021-2'
+                        name = 'semestre'
+                        value = {semestreSeleccionado.semestre}
+                        onChange = {handleChange}
+                    />   
+                </div>
 
                 <Grid align = 'center' className={classes.root}>
                     <Button
