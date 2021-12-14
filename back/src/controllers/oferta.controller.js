@@ -32,18 +32,23 @@ ofertaFunctions.estimacionPrereqAsignatura = async(req,res) =>{
 ofertaFunctions.guardarOfertaAsignatura = async(req,res) =>{
   const re=req.body
   var semestre=re.semestre;
-  for (var i=0;i<199;i++){
-    var ecin=re[i].ecin;
-    var cantParalelos=re[i].paralelos;
-    var demEstima=re[i].demEst;
-    var departamento=re[i].materia;
-    await pool .query("insert into ofertaAcademica values ($1) ON CONFLICT DO NOTHING;;",[semestre]).catch((e) =>console.log(e));
-    await pool
-      .query(" insert  into ofertaAsignatura(semestre, ecin, departamento, cantParalelos, demandaEstimada) values ($1,$2,$3,$4,$5) ON CONFLICT (semestre, ecin, departamento) do update set cantparalelos=$6, demandaEstimada=$7;",[semestre, ecin, departamento,demEstima, cantParalelos, cantParalelos,demEstima])
-      .then((result)=> console.log("Hecho"))
-      .catch((e) => console.log(e));
+  for (var i=0;i<999;i++){
+    if (re[i]) {
+      var ecin=re[i].ecin;
+      var cantParalelos=re[i].paralelos;
+      var demEstima=re[i].demEst;
+      var departamento=re[i].materia;
+      await pool .query("insert into ofertaAcademica values ($1) ON CONFLICT DO NOTHING;;",[semestre]).catch((e) =>console.log(e));
+      await pool
+        .query(" insert  into ofertaAsignatura(semestre, ecin, departamento, cantParalelos, demandaEstimada) values ($1,$2,$3,$4,$5) ON CONFLICT (semestre, ecin, departamento) do update set cantparalelos=$6, demandaEstimada=$7;",[semestre, ecin, departamento, cantParalelos,demEstima, cantParalelos,demEstima])
+        .then((result)=> console.log("Hecho",i))
+        .catch((e) => console.log(e));
+      }
+      else{
+        break
+      }
     }
-  res.body("Oferta ingresada");
+  res.status(200).json("Hecho");
 }
 
 ofertaFunctions.getOfertas = async(req,res)=>{
