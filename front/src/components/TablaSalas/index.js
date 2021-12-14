@@ -3,7 +3,7 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core';
 import { Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField } from '@material-ui/core';
 import {Edit, Delete} from '@material-ui/icons';
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+//import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 
 
@@ -99,7 +99,7 @@ export default function TablaSalas() {
     
     //peticion delete
     const deleteSala = async() =>{
-        await axios.delete('/api/salas/deleteSalas/'+SalaSeleccionada.codsala)
+        await axios.delete('/api/salas/deleteSalas/' + SalaSeleccionada.codsala)
         .then(response=>{
             setData(data.filter(sala=>sala.codsala!==SalaSeleccionada.codsala)); //filtar los datos por cdsala
             abrirCerrarModalELiminar();
@@ -168,32 +168,8 @@ export default function TablaSalas() {
         </div>
     )
 
-    /*con data.map recorremos el arreglo que nos retorno getSalas
-     *
-     *
-    */
-   const tablaSalas = (
-       <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell>Aforo Maximo</TableCell>
-                    <TableCell>Tipo</TableCell>
-                    <TableCell>Codigo Sala</TableCell>
-                    <TableCell>Acciones</TableCell>
-                </TableRow>
+ 
 
-                <TableBody>
-                    {data.map(sala =>(
-                        <TableRow>
-                            <TableCell>{sala.aforomax}</TableCell>
-                            <TableCell>{sala.tipo}</TableCell>
-                            <TableCell>{sala.codsala}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </TableHead>           
-       </Table>
-   )
   
     return (
         <div className = 'App'>
@@ -203,7 +179,7 @@ export default function TablaSalas() {
             </div>
             <br /><br />
             <TableContainer>
-                <Table>
+                <Table id = 'tableS'>
                     <TableHead>
                         <TableRow>
                             <TableCell>Aforo Maximo</TableCell>
@@ -252,6 +228,7 @@ export default function TablaSalas() {
                 {bodyEliminar}
             </Modal>
             <br/><br/>
+            {/*
             <div align = "center">
                 <ReactHTMLTableToExcel
                     id = 'botonExportarExcel'
@@ -260,10 +237,10 @@ export default function TablaSalas() {
                     filename = 'Salas'
                     sheet = 'salasEIC'
                     buttonText = 'Exportar a Excel'
-                />   
-                 
-                 
+                />      
             </div>
+            */}
+
 
         </div>
         

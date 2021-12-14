@@ -1,11 +1,12 @@
-import React from 'react'
-import { Grid, Button} from '@material-ui/core'
+import React,  {useEffect,useState }from 'react'
+import { Grid, Button, TableCell, TableRow, TableHead, TableBody, TableContainer} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Contenedor } from '../../components'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import { SelectCarr, SelectSemestre } from '../../components'
+import axios from 'axios';
 
-
+import XLSX from 'xlsx';
 
 
 
@@ -55,30 +56,73 @@ const useStyles = makeStyles(theme=>({
 }))
 
 
-export default function OfertaAcademica() {
 
+
+export default function OfertaAcademica() {
     const classes = useStyles() 
 
+    const [datas, setData] = useState([]);
+
+
+    const getOfertas = async() => {
+        await axios.get('/api/oferta/getofertas')
+        .then(response => {
+            setData(response.data)
+        })
+    }
+    useEffect (()=>{
+        getOfertas();
+    },[])
+
+
+    const DataSet = datas.map((oferta)=>(
+
+        {
+        Semestre: oferta.semestre,
+        ECIN: oferta.ecin,
+        Dpto: oferta.departamento,
+        Paralelos: oferta.cantparalelos,
+        Demanda: oferta.demandaestimada
+    }
+    ))
+    console.log(DataSet)
+    const downloadExcel = ()=>{
+        const workSheet = XLSX.utils.json_to_sheet(DataSet)
+        const workBook = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(workBook,workSheet,"ofertaAcademica")
+
+        let buf = XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+        XLSX.write(workBook,{bookType:'xlsx',type:"binary"})
+        XLSX.writeFile(workBook,"OfertaAcademica.xlsx")
+    }
     return (
         <div>
             <section >
                 <Contenedor/>
                 <h2 className = { classes.text }>Haz clic en el boton para generar la sugerencia de Oferta Academica</h2>
-                <div className = {classes.div1} style = {{width:'150px',margin:'auto'}}><SelectCarr /></div>
+                {/*<div className = {classes.div1} style = {{width:'150px',margin:'auto'}}><SelectCarr /></div>*/}
+                <br/><br/>
                 <div className = {classes.div2} style = {{width:'200px',margin:'auto'}}><SelectSemestre/></div>
-                <Grid container component ='main' className={classes.root}>
+
+                <Grid align = 'center' className={classes.root}>
                     <Button
-                        variant = 'contained'
-                        color = 'primary'
-                        size = 'large'
-                        endIcon = {<TimelineIcon fontSize = 'large'/>}
+                        type = "button" 
+                        variant = 'contained' 
+                        color = 'primary' 
+                        size = 'large' 
+                        endIcon = {<TimelineIcon fontSize = 'large'/>} 
                         className = {classes.button}
+                        onClick = {() => downloadExcel()}
                     >
                         GENERAR OFERTA ACADEMICA
                     </Button>
                 </Grid>
+
+
+                    
             </section>
-            
+     
+
         </div>
        
     )

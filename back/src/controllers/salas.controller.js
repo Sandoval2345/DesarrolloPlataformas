@@ -10,7 +10,7 @@ salasFunctions.getSalas = async(req, res) =>{
     await pool
         .query('SELECT aforomax, tipo, codsala FROM salas')
         .then((result) => {
-        res.status(200).json(result.rows);
+            res.status(200).json(result.rows);
         })
         .catch((e) => console.log(e)); //responde con un objeto json y el status es el codigo de estado, por defecto es 200
 }

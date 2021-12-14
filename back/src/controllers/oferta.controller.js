@@ -51,5 +51,14 @@ ofertaFunctions.guardarOfertaAsignatura = async(req,res) =>{
       .catch((e) => console.log(e));
       
 }}
+
+ofertaFunctions.getOfertas = async(req,res)=>{
+  await pool
+    .query('select * from ofertaAsignatura')
+    .then((result)=>{
+      res.status(200).json(result.rows);
+    })
+    .catch((e) => console.log(e));
+}
 export default ofertaFunctions;
 
