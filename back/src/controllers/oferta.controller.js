@@ -55,7 +55,7 @@ ofertaFunctions.guardarOfertaAsignatura = async(req,res) =>{
 
 ofertaFunctions.getOfertas = async(req,res)=>{
   await pool
-    .query('select ofertaasignatura.ecin, ofertaasignatura.departamento, asignatura.nombre, cantParalelos, demandaEstimada  from ofertaAsignatura inner join asignatura on ofertaasignatura.ecin=asignatura.ecin and asignatura.departamento=ofertaAsignatura.departamento where semestre=$1',[req.params.semestre])
+    .query('select ofertaasignatura.semestre, asignatura.nombre, ofertaasignatura.ecin, ofertaasignatura.departamento, cantParalelos, demandaEstimada  from ofertaAsignatura inner join asignatura on ofertaasignatura.ecin=asignatura.ecin and asignatura.departamento=ofertaAsignatura.departamento where semestre=$1',[req.params.semestre])
     .then((result)=>{
       res.status(200).json(result.rows);
     })
