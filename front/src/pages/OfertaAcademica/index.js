@@ -67,7 +67,7 @@ export default function OfertaAcademica() {
     })
 
     const getOfertas = async() => {
-        await axios.get('/api/oferta/getofertas/' + semestreSeleccionado)
+        await axios.get('/api/oferta/getOfertas/' + semestreSeleccionado.semestre)
         .then(response => {
             setData(response.data)
         })
@@ -78,16 +78,18 @@ export default function OfertaAcademica() {
 
     const handleChange=e=>{
         const {name,value}=e.target;
-        setSemestreSeleccionado(prevState=>({
-            ...prevState,
-            [name]: value
-        }))
+        if (name !==""){
+            setSemestreSeleccionado(prevState=>({
+                ...prevState,
+                [name]: value
+            }))
+        }
         console.log(semestreSeleccionado)
     }
     const DataSet = datas.map((oferta)=>(
 
         {
-        Semestre: oferta.semestre,
+        Nombre: oferta.nombre,
         ECIN: oferta.ecin,
         Dpto: oferta.departamento,
         Paralelos: oferta.cantparalelos,
@@ -102,7 +104,7 @@ export default function OfertaAcademica() {
 
         let buf = XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
         XLSX.write(workBook,{bookType:'xlsx',type:"binary"})
-        XLSX.writeFile(workBook,"OfertaAcademica.xlsx")
+        XLSX.writeFile(workBook,"OfertaAcademica"+semestreSeleccionado.semestre+".xlsx")
     }
     return (
         <div>
@@ -117,7 +119,7 @@ export default function OfertaAcademica() {
                         color = 'primary'
                         margin = 'normal'
                         variant = 'outlined'
-                        label = 'Ingerese año-semestre. Ej:2021-2'
+                        label = 'Ingerese año-semestre. Ej:2021-02'
                         name = 'semestre'
                         value = {semestreSeleccionado.semestre}
                         onChange = {handleChange}
