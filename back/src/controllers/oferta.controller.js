@@ -1,5 +1,7 @@
 import e, { json } from "express";
 import pool from "../Database/conexion.js"
+ 
+
 let ofertaFunctions= {};
 
 ofertaFunctions.estimacionPrereqAsignatura = async(req,res) =>{
