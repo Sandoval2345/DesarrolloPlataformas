@@ -1,7 +1,7 @@
 //import cors from 'cors';
 import salasroutes from './routes/salas.routes.js';
 import ofertaroutes from './routes/oferta.routes.js';
-import asignaturas from './routes/asginaturas.routes.js'
+
 import express from 'express'
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended: false}))
 //rutas
 app.use('/api/salas',salasroutes);
 app.use('/api/oferta',ofertaroutes);
-app.use('api/asign',asignaturas)
+
 
 const port = 3001;
 

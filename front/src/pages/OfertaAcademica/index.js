@@ -3,10 +3,11 @@ import { Grid, Button, TextField} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Contenedor } from '../../components'
 import TimelineIcon from '@mui/icons-material/Timeline'
-import { SelectSemestre } from '../../components'
+import { useForm } from '../../shared/hooks/useForm'
 import axios from 'axios';
 
 import XLSX from 'xlsx';
+
 
 
 
@@ -60,52 +61,57 @@ const useStyles = makeStyles(theme=>({
 
 export default function OfertaAcademica() {
     const classes = useStyles() 
+    const [datas, setDatas] = useState([]);
+    const [form, handleFormChange] = useForm({semestre:""})
 
-    const [datas, setData] = useState([]);
-    const [semestreSeleccionado, setSemestreSeleccionado] = useState({
-        semestre:''
-    })
 
-    const getOfertas = async() => {
-        await axios.get('/api/oferta/getOfertas/' + semestreSeleccionado.semestre)
-        .then(response => {
-            setData(response.data)
-        })
-    }
+
+  
+    
     useEffect (()=>{
-        getOfertas();
-    },[])
-
-    const handleChange=e=>{
-        const {name,value}=e.target;
-        if (name !==""){
-            setSemestreSeleccionado(prevState=>({
-                ...prevState,
-                [name]: value
-            }))
+        
+        console.log(form.semestre.length)
+        if(form.semestre.length === 7){
+            axios.get('/api/oferta/getOfertas/' + form.semestre)
+            .then(response => {
+                
+                setDatas(response.data)
+                console.log(form.semestre)
+            })
         }
-        console.log(semestreSeleccionado)
-    }
-    const DataSet = datas.map((oferta)=>(
+        //sweet alert
+    },[form])
+
+
+    
+    
+    let DataSet = datas.map((oferta)=>(
 
         {
-        Nombre: oferta.nombre,
-        ECIN: oferta.ecin,
-        Dpto: oferta.departamento,
-        Paralelos: oferta.cantparalelos,
-        Demanda: oferta.demandaestimada
-    }
+            Semestre: oferta.semestre,
+            Nombre: oferta.nombre,
+            ECIN: oferta.ecin,
+            Dpto: oferta.departamento,
+            Paralelos: oferta.cantparalelos,
+            Demanda: oferta.demandaestimada
+        }
     ))
-    console.log(DataSet)
-    const downloadExcel = ()=>{
+    //console.log(DataSet)
+
+    const downloadExcel = () =>{
+        
         const workSheet = XLSX.utils.json_to_sheet(DataSet)
         const workBook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(workBook,workSheet,"ofertaAcademica")
 
         let buf = XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
         XLSX.write(workBook,{bookType:'xlsx',type:"binary"})
-        XLSX.writeFile(workBook,"OfertaAcademica"+semestreSeleccionado.semestre+".xlsx")
+        XLSX.writeFile(workBook,"OfertaAcademica"+form.semestre+".xlsx")
+        
+    
     }
+
+    //console.log(form.semestre)
     return (
         <div>
             <section >
@@ -115,14 +121,17 @@ export default function OfertaAcademica() {
                 <br/><br/>
                 <div className = {classes.div2} style = {{width:'200px',margin:'auto'}}>
                     <TextField
+                        
+                        inputProps={{maxLenght:6, minLenght:6}}
                         fullWidth
                         color = 'primary'
                         margin = 'normal'
                         variant = 'outlined'
-                        label = 'Ingerese año-semestre. Ej:2021-02'
+                        //label = 'Ingerese año-semestre. Ej:2021-02'
                         name = 'semestre'
-                        value = {semestreSeleccionado.semestre}
-                        onChange = {handleChange}
+                        value = {form.semestre}
+                        onChange = {({target}) => handleFormChange({semestre: target.value})}
+                        placeholder = 'Ingerese año-semestre. Ej:2021-02'
                     />   
                 </div>
 
@@ -134,7 +143,7 @@ export default function OfertaAcademica() {
                         size = 'large' 
                         endIcon = {<TimelineIcon fontSize = 'large'/>} 
                         className = {classes.button}
-                        onClick = {() => downloadExcel()}
+                        onClick = {() => downloadExcel() }
                     >
                         GENERAR OFERTA ACADEMICA
                     </Button>
