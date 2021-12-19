@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import { Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField } from '@material-ui/core';
 import {Edit, Delete} from '@material-ui/icons';
 //import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-
+import { useForm } from '../../shared/hooks/useForm'
 
 
 
@@ -42,6 +42,11 @@ export default function TablaSalas() {
         tipo:'',
         codsala: ''
     })
+    const [form, handleFormChange] = useForm({
+        aforoMax: '',
+        tipo: '',
+        codsala:''
+    })
 
     const handleChange=e=>{ //alamcenamos lo que se escribe en el textfield
         const{name, value}=e.target; //name es una propiedad que le di a cada textfield mas abajo
@@ -63,15 +68,17 @@ export default function TablaSalas() {
            setData(response.data) //lo que obtuvimos en la peticion getSalas se lo asignamos al estado
         });
     }
+    
 
     useEffect (() =>{
         getSalas();
+
     },[])
 
 
     //peticion post
     const createSala = async()=>{
-        await axios.post('/api/salas/registSalas',SalaSeleccionada)
+        await axios.post('/api/salas/registSalas',SalaSeleccionada) //SalaSeleccionada
         .then(response =>{
             setData(data.concat(response.data))
             abrirCerrarModalInsert()
@@ -96,6 +103,10 @@ export default function TablaSalas() {
         })
     }
 
+
+
+
+   
     
     //peticion delete
     const deleteSala = async() =>{
@@ -227,21 +238,7 @@ export default function TablaSalas() {
             >
                 {bodyEliminar}
             </Modal>
-            <br/><br/>
-            {/*
-            <div align = "center">
-                <ReactHTMLTableToExcel
-                    id = 'botonExportarExcel'
-                    className = 'btn btn-success'
-                    table = 'TablaSalas'
-                    filename = 'Salas'
-                    sheet = 'salasEIC'
-                    buttonText = 'Exportar a Excel'
-                />      
-            </div>
-            */}
-
-
+        
         </div>
         
     )

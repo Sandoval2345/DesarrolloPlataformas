@@ -5,7 +5,7 @@ import { Contenedor } from '../../components'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import { useForm } from '../../shared/hooks/useForm'
 import axios from 'axios';
-
+import swal from 'sweetalert'
 import XLSX from 'xlsx';
 
 
@@ -63,20 +63,20 @@ export default function OfertaAcademica() {
     const classes = useStyles() 
     const [datas, setDatas] = useState([]);
     const [form, handleFormChange] = useForm({semestre:""})
-
+    const [fecha, setFecha] = useState('')
+    const [fechaError, setFechaError] = useState(false)
 
 
   
     
     useEffect (()=>{
         
-        console.log(form.semestre.length)
         if(form.semestre.length === 7){
             axios.get('/api/oferta/getOfertas/' + form.semestre)
             .then(response => {
                 
                 setDatas(response.data)
-                console.log(form.semestre)
+            
             })
         }
         //sweet alert
@@ -97,17 +97,36 @@ export default function OfertaAcademica() {
         }
     ))
     //console.log(DataSet)
-
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        //setFechaError(true)
+        if (e.target.value < 7){
+            console.log('caca')
+            setFechaError(true)
+        }else{
+            console.log('cacuca')
+        }
+    }
+    const mostrarAlerta=()=>{
+        if(fecha === "" || fecha.length < 7){
+            swal({
+                title:'Error',
+                text:'Debe ingresar los datos de la siguiente forma: año-semestre Ej. 2021-02',
+                icon:'warning',
+                
+            })
+        }
+    }
     const downloadExcel = () =>{
         
-        const workSheet = XLSX.utils.json_to_sheet(DataSet)
-        const workBook = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(workBook,workSheet,"ofertaAcademica")
-
-        let buf = XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
-        XLSX.write(workBook,{bookType:'xlsx',type:"binary"})
-        XLSX.writeFile(workBook,"OfertaAcademica"+form.semestre+".xlsx")
-        
+        if(fecha !== "" && fecha.length === 7){
+            const workSheet = XLSX.utils.json_to_sheet(DataSet)
+            const workBook = XLSX.utils.book_new()
+            XLSX.utils.book_append_sheet(workBook,workSheet,"ofertaAcademica")
+            let buf = XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+            XLSX.write(workBook,{bookType:'xlsx',type:"binary"})
+            XLSX.writeFile(workBook,"OfertaAcademica"+form.semestre+".xlsx")
+        }
     
     }
 
@@ -119,36 +138,41 @@ export default function OfertaAcademica() {
                 <h2 className = { classes.text }>Haz clic en el boton para generar la sugerencia de Oferta Academica</h2>
                 {/*<div className = {classes.div1} style = {{width:'150px',margin:'auto'}}><SelectCarr /></div>*/}
                 <br/><br/>
-                <div className = {classes.div2} style = {{width:'200px',margin:'auto'}}>
-                    <TextField
+                <form noValidate autoComplete='off' onSubmit={handleSubmit} >
+                    <div className = {classes.div2} style = {{width:'200px',margin:'auto'}}>
+                            <TextField
+                                
+                                required
+                                fullWidth
+                                color = 'primary'
+                                margin = 'normal'
+                                variant = 'outlined'
+                                label = 'Ingerese año-semestre. Ej:2021-02'
+                                name = 'semestre'
+                                value = {form.semestre}
+                                onChange = {({target}) => handleFormChange({semestre: target.value},setFecha(target.value))}
+                                onInput={(e)=>{e.target.value = e.target.value.slice(0,7)}}
+                                //placeholder = 'Ingerese año-semestre. Ej:2021-02'
+                                
+                            />   
                         
-                        inputProps={{maxLenght:6, minLenght:6}}
-                        fullWidth
-                        color = 'primary'
-                        margin = 'normal'
-                        variant = 'outlined'
-                        //label = 'Ingerese año-semestre. Ej:2021-02'
-                        name = 'semestre'
-                        value = {form.semestre}
-                        onChange = {({target}) => handleFormChange({semestre: target.value})}
-                        placeholder = 'Ingerese año-semestre. Ej:2021-02'
-                    />   
-                </div>
+                    </div>
 
-                <Grid align = 'center' className={classes.root}>
-                    <Button
-                        type = "button" 
-                        variant = 'contained' 
-                        color = 'primary' 
-                        size = 'large' 
-                        endIcon = {<TimelineIcon fontSize = 'large'/>} 
-                        className = {classes.button}
-                        onClick = {() => downloadExcel() }
-                    >
-                        GENERAR OFERTA ACADEMICA
-                    </Button>
-                </Grid>
-
+                    <Grid align = 'center' className={classes.root}>
+                        <Button
+                            type = "button" 
+                            variant = 'contained' 
+                            color = 'primary' 
+                            size = 'large' 
+                            endIcon = {<TimelineIcon fontSize = 'large'/>} 
+                            className = {classes.button}
+                            onClick = {() => {downloadExcel(); mostrarAlerta()}}
+                            
+                        >
+                            GENERAR OFERTA ACADEMICA
+                        </Button>
+                    </Grid>
+                </form>
 
                     
             </section>
