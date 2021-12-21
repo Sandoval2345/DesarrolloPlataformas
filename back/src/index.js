@@ -1,6 +1,6 @@
 //import cors from 'cors';
-import salasroutes from './routes/salas.routes.js';
-import ofertaroutes from './routes/oferta.routes.js';
+import salasroutes from './Routes/salas.routes.js';
+import ofertaroutes from './Routes/oferta.routes.js';
 
 import express from 'express'
 
