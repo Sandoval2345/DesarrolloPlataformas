@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme=>({
     container:{
         opacity: '0.8',
         height: '85%', //largo del contenedor
-        marginTop: theme.spacing(20), //altura del contenedor
+        marginTop: theme.spacing(10), //altura del contenedor
         [theme.breakpoints.down(400 + theme.spacing(2)+2)]:{ //responsive
             marginTop: 0,
             width: '100%',
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme=>({
     avatar:{
         margin: theme.spacing(6),
         marginTop: -40,
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: theme.palette.primary.main 
        
     },
     form:{

@@ -62,7 +62,7 @@ export default function Lista() {
                             </ListItem>
                         </Link>
                     </li>
-
+                    {/*
                     <li className = 'nav-item'>
                         <Link  to = {'/Salas'} className = 'btn'>
                             <ListItem button>
@@ -73,6 +73,7 @@ export default function Lista() {
                             </ListItem>
                         </Link>
                     </li>
+                    */}
                 </div>
                 <Divider/>
             </List>

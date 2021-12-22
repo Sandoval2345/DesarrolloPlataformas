@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme=>({
     container:{
         opacity: '0.8',
         height: '80%', //largo del contenedor
-        marginTop: theme.spacing(20), //altura del contenedor
+        marginTop: theme.spacing(10), //altura del contenedor
         [theme.breakpoints.down(400 + theme.spacing(4)+4)]:{ //responsive
             marginTop: 0,
             width: '100%',
@@ -141,7 +141,7 @@ export default function Login() {
                             <Link to = '/forgotpassword'>
                                 <ListItemText secondary = 'Recuperar contraseña'  className = {classes.text2}/>
                             </Link>  
-                            <br/><br/>                    
+                            <br  /><br  />                  
 
                         </form>
                     
